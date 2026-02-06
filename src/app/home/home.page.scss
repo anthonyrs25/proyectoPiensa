@@ -1,3 +1,60 @@
+.ms-header {
+  ion-toolbar {
+    --min-height: 56px;
+  }
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: none;
+}
+
+.brand__logo {
+  width: 40px;
+  height: 40px;
+  object-fit: scale-down;
+}
+
+.brand__name {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+}
+
+.nav-center {
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.actions {
+  gap: 6px;
+}
+
+.label {
+  display: none;
+  margin-left: 6px;
+}
+
+.login {
+  --border-radius: 12px;
+}
+
+@media (min-width: 768px) {
+  .nav-center{
+    display: block;
+  }
+  .label {
+    display: inline;
+  }
+  .brand__name {
+    font-size: 15px;
+  }
+}
+
 #container {
   text-align: center;
 
@@ -6,22 +63,4 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
-}
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
 }
