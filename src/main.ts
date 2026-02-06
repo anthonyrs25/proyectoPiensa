@@ -4,6 +4,14 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
+import {addIcons} from 'ionicons';
+import {contrastOutline, languageOutline, personCircleOutline} from 'ionicons/icons';
+
+addIcons({
+  'contrast-outline': contrastOutline,
+  'language-outline':languageOutline,
+  'person-circle-outline':personCircleOutline,
+});
 
 bootstrapApplication(AppComponent, {
   providers: [

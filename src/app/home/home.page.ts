@@ -6,7 +6,7 @@ import { IonHeader, IonToolbar, IonContent, IonFooter, IonButton, IonButtons, Io
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonButtons, IonHeader, IonToolbar, IonContent, IonFooter, IonButtons, IonButton, IonIcon],
+  imports: [IonHeader, IonToolbar, IonContent, IonFooter, IonButton, IonButtons, IonIcon],
 })
 export class HomePage {
   constructor() {}
@@ -26,5 +26,11 @@ openLanguageModal() {
 
 openLoginModal() {
   console.log('Abrir modal de Login');
+}
+onVideoReady(ev:Event) {
+  const video = ev.target as HTMLVideoElement;
+  video.play().catch(() => {
+
+  });
 }
 }

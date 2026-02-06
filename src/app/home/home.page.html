@@ -35,6 +35,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <section id="video-container">
+    <video autoplay muted loop playsinline webkit-playsinline preload="auto" (loadedmetadata)="onVideoReady($event)">
+      <source src="assets/video.mp4" type="video/mp4">
+    </video>
+  </section>
   <section id="inicio">
     <h2>Inicio</h2>
   </section>
