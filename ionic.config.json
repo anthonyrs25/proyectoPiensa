@@ -1,0 +1,7 @@
+{
+  "name": "proyectoPiensa",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
