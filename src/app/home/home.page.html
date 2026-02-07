@@ -1,27 +1,27 @@
-<ion-header class= "ms-header" [translucent]="true">
-  <ion-toolbar>
+<ion-header class="ms-header" [translucent]="true">
+  <ion-toolbar class="ms-toolbar">
 
-    <ion-buttons slot="start">
-      <ion-button fill="clear" class="brand" (click)="scrollTo('inicio')">
-      <img class="brand__logo" src="assets/logo.png" alt="MOTRISERVICE LOGO"/>
-      <span class="brand__name">MOTRISERVICE</span>
+    <ion-buttons slot="start" class="ms-left">
+      <ion-button fill="clear" class="left" (click)="scrollTop()">
+        <img class="left-logo" src="assets/logo.png" alt="LOGO" />
+        <span class="left-name">MOTRISERVICE</span>
       </ion-button>
     </ion-buttons>
 
-    <div class="nav-center">
-      <ion-buttons>
+    <section class="ms-center">
+      <ion-buttons class="ms-nav">
         <ion-button fill="clear" (click)="scrollTo('sobre')">Sobre Nosotros</ion-button>
         <ion-button fill="clear" (click)="scrollTo('servicios')">Servicios</ion-button>
         <ion-button fill="clear" (click)="scrollTo('contacto')">Contacto</ion-button>
       </ion-buttons>
-    </div>
+    </section>
 
-    <ion-buttons slot="end" class="actions">
-      <ion-button fill="clear" (click)="openThemeModal()">
+    <ion-buttons slot="end" class="ms-right">
+      <ion-button fill="clear" class="chip" (click)="openThemeModal()">
         <ion-icon name="contrast-outline" slot="start"></ion-icon>
         <span class="label">Tema</span>
       </ion-button>
-      <ion-button fill="clear" (click)="openLanguageModal()">
+      <ion-button fill="clear" class="chip" (click)="openLanguageModal()">
         <ion-icon name="language-outline" slot="start"></ion-icon>
         <span class="label">Idioma</span>
       </ion-button>
@@ -34,14 +34,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content #pageContent [fullscreen]="true">
   <section id="video-container">
-    <video autoplay muted loop playsinline webkit-playsinline preload="auto" (loadedmetadata)="onVideoReady($event)">
-      <source src="assets/video.mp4" type="video/mp4">
+    <video #bgVideo muted autoplay loop playsinline webkit-playsinline preload="auto">
+      <source src="assets/video.mp4" type="video/mp4" />
     </video>
-  </section>
-  <section id="inicio">
-    <h2>Inicio</h2>
   </section>
   <section id="sobre">
     <h2>Sobre Nosotros</h2>
