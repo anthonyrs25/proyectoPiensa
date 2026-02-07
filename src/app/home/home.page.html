@@ -25,9 +25,9 @@
         <ion-icon name="language-outline" slot="start"></ion-icon>
         <span class="label">Idioma</span>
       </ion-button>
-      <ion-button fill="solid" class="login" (click)="openLoginModal()">
+      <ion-button fill="clear" class="login" (click)="openLoginModal()">
         <ion-icon name="person-circle-outline" slot="start"></ion-icon>
-        <span class="label">Iniciar Sesión</span>
+        <span class="login-text">Iniciar Sesión</span>
       </ion-button>
     </ion-buttons>
 
@@ -39,6 +39,10 @@
     <video #bgVideo muted autoplay loop playsinline webkit-playsinline preload="auto">
       <source src="assets/video.mp4" type="video/mp4" />
     </video>
+    <div class="video-overlay">
+    <h1>Ingeniería Automotriz</h1>
+    <p>Reparando motores desde 2001</p>
+  </div>
   </section>
   <section id="sobre">
     <h2>Sobre Nosotros</h2>

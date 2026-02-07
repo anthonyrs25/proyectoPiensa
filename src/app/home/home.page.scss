@@ -17,6 +17,11 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.ms-toolbar ion-button {
+  --min-height: 40px;
+  --border-radius: 12px;
+}
+
 .ms-left,
 .ms-right {
   display: flex;
@@ -37,8 +42,8 @@
   display: flex;
   align-items: center;
   height: 44px;
-  --padding-left: 4px;
-  --padding-right: 8px;
+  --padding-start: 4px;
+  --padding-end: 8px;
 }
 
 .left-logo {
@@ -50,34 +55,20 @@
 }
 
 .left-name {
-  margin-left: 10px;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.06px;
+  margin-left: 20px;
+  font-size: 22px;
+  font-weight: 600;
   opacity: 0.9;
   white-space: nowrap;
-}
-
-@media (max-width: 920px) {
-  .left-name {
-    display: none;
-  }
-  .ms-center {
-    display: none;
-  }
-  .chip .label {
-    display: none;
-  }
 }
 
 .ms-nav ion-button {
   --padding-start: 10px;
   --padding-end: 10px;
   height: 40px;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: 0.08px;
-  text-transform: uppercase;
   opacity: 0.88;
 }
 
@@ -93,32 +84,43 @@
   --background-hover: rgba(255,255,255,0.06);
   --color: rgba(233,233,238,0.95);
   border: 1px solid rgba(255,255,255,0.10);
+  text-transform: none;
 }
 
 .chip ion-icon {
-  font-size: 18px;
+  font-size: 14px;
   opacity: 0.95;
-}
-
-.login {
-  height: 40px;
-  border-radius: 12px;
-  --padding-start: 14px;
-  --padding-end: 14px;
-  --background: rgba(255,255,255,0.92);
-  --background-hover: rgba(255,255,255,1);
-  --color: rgba(10,10,12,0.95);
-  border: 1px solid rgba(255,255,255,0.20);
-}
-
-.login ion-icon {
-  font-size: 25px;
 }
 
 .label {
   display: inline-flex;
   align-items: center;
   line-height: 1;
+}
+
+.login {
+  --min-height: 40px;
+  height: 40px;
+  --border-radius: 15px;
+  --padding-start: 14px;
+  --padding-end: 14px;
+  --padding-top: 0px;
+  --padding-bottom: 0px;
+  --box-shadow: none;
+  margin: 0;
+  --background: linear-gradient(
+    60deg, #1f7cff 0%, #5b2dff 66%, #5b2dff 99%
+  );
+  --background-hover: rgba(255,255,255,1);
+  --color: rgba(255,255,255,0.96);
+  text-transform: none;
+}
+
+.login .login-text {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 #video-container {
@@ -128,10 +130,57 @@
   overflow: hidden;
 }
 
-#video-container video {
-  position: absolute;
-  inset: 0;
+video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      rgba(0,0,0,0.75),
+      rgba(0,0,0,0.75)
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.video-overlay h1 {
+  font-size: clamp(2.2rem, 4.5vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  background: linear-gradient(90deg,#1f7cff 0%, #5b2dff 45%, #ff2d8d 100%);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.video-overlay p {
+  color: rgba(255,255,255,0.85);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  letter-spacing: 0.4px;
+}
+
+@media (max-width: 920px) {
+  .left-name {
+    display: none;
+  }
+  .ms-center {
+    display: none;
+  }
+  .chip .label {
+    display: none;
+  }
+  .login .login-text {
+    display: none !important;
+  }
 }
