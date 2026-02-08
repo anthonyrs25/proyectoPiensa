@@ -276,27 +276,32 @@ video {
 }
 
 /* Detalle sutil del logo (borde con gradiente muy suave) */
-.service-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  padding: 1px;
+.service-card {
+  position: relative;
+  overflow: hidden;
   border-radius: 16px;
+  aspect-ratio: 4 / 5;
+  cursor: pointer;
 
-  background: linear-gradient(90deg, #1f7cff, #5b2dff, #ff2d8d);
-  opacity: 0.22;
-
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-
-  z-index: 2;
-  pointer-events: none;
+  /* borde degradado estándar */
+  border: 1px solid transparent;
+  background:
+    linear-gradient(rgba(16,16,18,0.62), rgba(16,16,18,0.62)) padding-box,
+    linear-gradient(90deg, #1f7cff, #5b2dff, #ff2d8d) border-box;
 }
 
-/* Base (solo título visible) */
+/* si quieres que el borde sea más sutil */
+.service-card {
+  background:
+    linear-gradient(rgba(16,16,18,0.62), rgba(16,16,18,0.62)) padding-box,
+    linear-gradient(90deg,
+      rgba(31,124,255,0.55),
+      rgba(91,45,255,0.55),
+      rgba(255,45,141,0.55)
+    ) border-box;
+}
+
+  /* Base (solo título visible) */
 .service-base {
   position: absolute;
   left: 14px;
