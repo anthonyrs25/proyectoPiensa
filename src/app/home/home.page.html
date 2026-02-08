@@ -40,21 +40,256 @@
       <source src="assets/video.mp4" type="video/mp4" />
     </video>
     <div class="video-overlay">
-    <h1>Ingeniería Automotriz</h1>
-    <p>Reparando motores desde 2001</p>
-  </div>
+      <h1>Ingeniería Automotriz</h1>
+      <p>Reparando motores desde 2001</p>
+    </div>
   </section>
-  <section id="sobre">
-    <h2>Sobre Nosotros</h2>
+
+  <section id="sobre" class="ms-section ms-about">
+    <div class="ms-section__head">
+      <h2 class="ms-title">Sobre Nosotros</h2>
+      <p class="ms-subtitle">
+        Somos un taller enfocado en diagnóstico, seguridad y mantenimiento preventivo. Trabajamos con procesos claros,
+        repuestos adecuados y comunicación transparente.
+      </p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-card about-card--story">
+        <h3>Nuestra forma de trabajar</h3>
+        <p>
+          Priorizamos el diagnóstico antes del reemplazo de piezas. Documentamos hallazgos, proponemos opciones y
+          ejecutamos
+          el trabajo con criterio técnico y orden.
+        </p>
+        <ul class="about-list">
+          <li><span class="dot"></span>Diagnóstico y criterios de seguridad</li>
+          <li><span class="dot"></span>Presupuesto claro antes de intervenir</li>
+          <li><span class="dot"></span>Control de calidad y prueba de ruta</li>
+        </ul>
+      </div>
+
+      <div class="about-card about-card--highlights">
+        <div class="highlight">
+          <div class="hl-title">+20 años</div>
+          <div class="hl-sub">Experiencia acumulada</div>
+        </div>
+        <div class="highlight">
+          <div class="hl-title">Diagnóstico</div>
+          <div class="hl-sub">Datos en vivo y escáner</div>
+        </div>
+        <div class="highlight">
+          <div class="hl-title">Seguridad</div>
+          <div class="hl-sub">Frenos, suspensión, dirección</div>
+        </div>
+        <div class="highlight">
+          <div class="hl-title">Garantía</div>
+          <div class="hl-sub">Según servicio y repuestos</div>
+        </div>
+      </div>
+
+      <div class="about-card about-card--cta">
+        <h3>¿Listo para una revisión?</h3>
+        <p>
+          Si tu vehículo presenta ruidos, vibraciones, testigos en el tablero o pérdida de potencia, agenda una
+          revisión.
+        </p>
+        <button class="ms-btn ms-btn--outline" type="button" (click)="scrollTo('contacto')">
+          Ir a Contacto
+        </button>
+      </div>
+    </div>
   </section>
-  <section id="servicios">
-    <h2>Servicios</h2>
+
+  <section id="servicios" class="ms-section ms-services">
+    <div class="ms-section__head">
+      <h2 class="ms-title">Servicios</h2>
+      <p class="ms-subtitle">Mantenimiento y reparación automotriz con estándares de diagnóstico y seguridad.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <article class="service-card">
+        <img src="assets/motor.jpg" alt="Reparación de motor" />
+        <div class="service-base">
+          <h3>Reparación de motor</h3>
+        </div>
+        <div class="service-hover">
+          <p>Inspección, ajuste y reparación para recuperar compresión, rendimiento y confiabilidad del motor.</p>
+          <button class="service-cta" type="button" (click)="scrollTo('contacto')">Agendar revisión</button>
+        </div>
+      </article>
+
+      <article class="service-card">
+        <img src="assets/aceite.jpg" alt="Cambio de aceite de motor" />
+        <div class="service-base">
+          <h3>Cambio de aceite de motor</h3>
+        </div>
+        <div class="service-hover">
+          <p>Servicio con filtro y especificación adecuada para proteger componentes y extender la vida útil del motor.
+          </p>
+          <button class="service-cta" type="button" (click)="scrollTo('contacto')">Agendar revisión</button>
+        </div>
+      </article>
+
+      <article class="service-card">
+        <img src="assets/suspension.jpg" alt="Reparación de suspensión" />
+        <div class="service-base">
+          <h3>Reparación de suspensión</h3>
+        </div>
+        <div class="service-hover">
+          <p>Diagnóstico de ruidos y holguras; reemplazo de componentes para estabilidad, confort y seguridad.</p>
+          <button class="service-cta" type="button" (click)="scrollTo('contacto')">Agendar revisión</button>
+        </div>
+      </article>
+
+      <article class="service-card">
+        <img src="assets/frenos.jpg" alt="ABC de frenos" />
+        <div class="service-base">
+          <h3>ABC de frenos</h3>
+        </div>
+        <div class="service-hover">
+          <p>Revisión integral de pastillas, discos, líquido y fugas para un frenado firme y confiable.</p>
+          <button class="service-cta" type="button" (click)="scrollTo('contacto')">Agendar revisión</button>
+        </div>
+      </article>
+
+      <article class="service-card">
+        <img src="assets/escaner.jpg" alt="Diagnóstico computarizado" />
+        <div class="service-base">
+          <h3>Diagnóstico computarizado</h3>
+        </div>
+        <div class="service-hover">
+          <p>Lectura de códigos y datos en vivo para identificar fallas con precisión y priorizar soluciones.</p>
+          <button class="service-cta" type="button" (click)="scrollTo('contacto')">Agendar revisión</button>
+        </div>
+      </article>
+
+      <article class="service-card">
+        <img src="assets/electrico.jpg" alt="Sistema eléctrico" />
+        <div class="service-base">
+          <h3>Sistema eléctrico</h3>
+        </div>
+        <div class="service-hover">
+          <p>Revisión de batería, alternador, cableado y consumo parasitario para evitar fallos intermitentes.</p>
+          <button class="service-cta" type="button" (click)="scrollTo('contacto')">Agendar revisión</button>
+        </div>
+      </article>
+
+      <article class="service-card">
+        <img src="assets/transmision.png" alt="Aceite de transmisión" />
+        <div class="service-base">
+          <h3>Aceite de transmisión</h3>
+        </div>
+        <div class="service-hover">
+          <p>Cambio de fluido según especificación para suavidad de cambios y protección del sistema.</p>
+          <button class="service-cta" type="button" (click)="scrollTo('contacto')">Agendar revisión</button>
+        </div>
+      </article>
+
+      <article class="service-card">
+        <img src="assets/embrague.png" alt="Sistema de embrague" />
+        <div class="service-base">
+          <h3>Sistema de embrague</h3>
+        </div>
+        <div class="service-hover">
+          <p>Diagnóstico de patinamiento y vibraciones; ajuste o reemplazo para una entrega de potencia segura.</p>
+          <button class="service-cta" type="button" (click)="scrollTo('contacto')">Agendar revisión</button>
+        </div>
+      </article>
+
+    </div>
   </section>
-  <section id="contacto">
-    <h2>Contacto</h2>
+
+  <section id="contacto" class="ms-section ms-contact">
+    <div class="ms-section__head">
+      <h2 class="ms-title">Contacto</h2>
+      <p class="ms-subtitle">
+        Agenda tu revisión. Completa el formulario y te responderemos con disponibilidad y recomendaciones iniciales.
+      </p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Formulario (solo frontend) -->
+      <div class="contact-card contact-card--form">
+        <h3>Agendar revisión</h3>
+
+        <div class="form-grid">
+          <div class="field">
+            <label>Nombre</label>
+            <input type="text" placeholder="Tu nombre" />
+          </div>
+
+          <div class="field">
+            <label>Teléfono</label>
+            <input type="tel" placeholder="Ej: 09XXXXXXXX" />
+          </div>
+
+          <div class="field">
+            <label>Vehículo</label>
+            <input type="text" placeholder="Marca y modelo" />
+          </div>
+
+          <div class="field">
+            <label>Servicio de interés</label>
+            <input type="text" placeholder="Ej: Diagnóstico, Frenos, Suspensión..." />
+          </div>
+
+          <div class="field field--full">
+            <label>Mensaje</label>
+            <textarea rows="4" placeholder="Describe el síntoma, ruido o problema..."></textarea>
+          </div>
+        </div>
+
+        <button class="ms-btn ms-btn--primary" type="button">
+          Enviar solicitud
+        </button>
+
+        <p class="form-hint">Solo frontend por ahora. La lógica de envío se integra después.</p>
+      </div>
+
+      <!-- Datos -->
+      <div class="contact-card contact-card--info">
+        <h3>Información</h3>
+
+        <div class="info-row">
+          <span class="info-k">Horario</span>
+          <span class="info-v">Lun–Sáb · 08:00–18:00</span>
+        </div>
+
+        <div class="info-row">
+          <span class="info-k">Ubicación</span>
+          <span class="info-v">Cuenca, Azuay</span>
+        </div>
+
+        <div class="info-row">
+          <span class="info-k">Teléfono</span>
+          <span class="info-v">+593 9 XXX XXXX</span>
+        </div>
+
+        <div class="info-row">
+          <span class="info-k">Correo</span>
+          <span class="info-v">contacto@motriserivce.ec</span>
+        </div>
+
+        <div class="info-sep"></div>
+
+        <p class="info-note">
+          Recomendación: para fallas eléctricas o de motor, indica si hay testigos en tablero y si el fallo es
+          intermitente.
+        </p>
+
+        <div class="info-actions">
+          <button class="ms-btn ms-btn--outline" type="button">WhatsApp</button>
+          <button class="ms-btn ms-btn--outline" type="button">Llamar</button>
+        </div>
+      </div>
+    </div>
   </section>
+
+  <ion-footer id="footer">
+<p>2026</p>
+</ion-footer>
+
 </ion-content>
 
-<ion-footer>
-
-</ion-footer>

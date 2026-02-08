@@ -76,6 +76,10 @@ export class HomePage {
     el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  goToContactoFromServicios() {
+    this.scrollTo('contacto');
+  }
+
   openThemeModal() {
     console.log('Abrir modal de Tema');
   }
