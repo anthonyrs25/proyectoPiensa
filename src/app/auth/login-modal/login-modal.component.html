@@ -1,3 +1,36 @@
-<p>
-  login-modal works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Iniciar sesión</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="close()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="login-card">
+    <h2>Bienvenido</h2>
+    <p>Ingresa tus credenciales para continuar.</p>
+
+    <ion-item lines="full">
+      <ion-label position="stacked">Usuario</ion-label>
+      <ion-input placeholder="Ej: anthony" autocomplete="username"></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="stacked">Contraseña</ion-label>
+      <ion-input type="password" placeholder="••••••••" autocomplete="current-password"></ion-input>
+    </ion-item>
+
+    <div class="actions">
+      <ion-button expand="block" class="btn-primary">
+        Entrar
+      </ion-button>
+
+      <ion-button expand="block" fill="clear" class="btn-secondary" (click)="close()">
+        Cancelar
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

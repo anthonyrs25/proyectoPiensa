@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { IonHeader, IonToolbar, IonContent, IonFooter, IonButton, IonButtons, IonIcon } from '@ionic/angular/standalone';
+import { ModalController } from '@ionic/angular/standalone';
+import { LoginModalComponent } from '../auth/login-modal/login-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -11,11 +13,21 @@ import { IonHeader, IonToolbar, IonContent, IonFooter, IonButton, IonButtons, Io
 
 export class HomePage {
 
-  @ViewChild('pageContent', { static: false}) content?: IonContent;
+  @ViewChild('pageContent', { static: false }) content?: IonContent;
   @ViewChild('bgVideo', { static: false }) bgVideo?: ElementRef<HTMLVideoElement>;
 
-  
- constructor() { }
+
+  constructor(private modalCtrl: ModalController) { }
+
+  async openLoginModal() {
+    const modal = await this.modalCtrl.create({
+      component: LoginModalComponent,
+      breakpoints: [0, 0.5, 0.75, 1],
+      initialBreakpoint: 0.75,
+      handle: true
+    });
+    await modal.present();
+  }
 
   scrollTop() {
     this.content?.scrollToTop(500);
@@ -70,10 +82,6 @@ export class HomePage {
 
   openLanguageModal() {
     console.log('Abrir modal de Idioma');
-  }
-
-  openLoginModal() {
-    console.log('Abrir modal de Login');
   }
 
 }

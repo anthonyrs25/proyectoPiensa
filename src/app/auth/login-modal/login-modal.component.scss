@@ -1,0 +1,40 @@
+.login-card {
+  max-width: 420px;
+  margin: 22px auto;
+  padding: 18px 16px;
+
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(15, 18, 20, 0.10);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.login-card h2 {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.login-card p {
+  margin: 0 0 14px;
+  color: rgba(15, 18, 20, 0.75);
+  font-size: 14px;
+}
+
+.actions {
+  margin-top: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.btn-primary {
+  --border-radius: 12px;
+  --background: linear-gradient(90deg, #1f7cff 0%, #5b2dff 45%, #ff2d8d 100%);
+  --color: rgba(255, 255, 255, 0.96);
+}
+
+.btn-secondary {
+  --color: rgba(15, 18, 20, 0.75);
+}
