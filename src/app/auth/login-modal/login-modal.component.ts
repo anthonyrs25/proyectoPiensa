@@ -32,29 +32,36 @@ export class LoginModalComponent {
     return this.modalCtrl.dismiss(data);
   }
 
-  async submit() {
-    this.loading = true;
-    try {
-      if (this.mode === 'register') {
-        if (this.password !== this.confirm) {
-          await this.toast('Las contraseñas no coinciden.');
-          return;
-        }
-        const r = await this.auth.register(this.username, this.password);
-        await this.toast(r.message);
-        if (r.ok) this.mode = 'login';
-      } else {
-        const r = await this.auth.login(this.username, this.password);
-        await this.toast(r.message);
-        if (r.ok) {
-          await this.close({ ok: true });
-          if (this.redirectTo) window.location.href = this.redirectTo;
-        }
-      }
-    } finally {
-      this.loading = false;
+ async submit() {
+  if (this.loading) return;
+  this.loading = true;
+
+  try {
+    if (!this.username.trim() || !this.password.trim()) {
+      await this.toast('Usuario y contraseña requeridos.');
+      return;
     }
+
+    if (this.mode === 'register') {
+      if (this.password !== this.confirm) {
+        await this.toast('Las contraseñas no coinciden.');
+        return;
+      }
+      const r = await this.auth.register(this.username.trim(), this.password);
+      await this.toast(r.message);
+      if (r.ok) this.mode = 'login';
+    } else {
+      const r = await this.auth.login(this.username.trim(), this.password);
+      await this.toast(r.message);
+      if (r.ok) {
+        await this.close({ ok: true });
+        if (this.redirectTo) window.location.href = this.redirectTo;
+      }
+    }
+  } finally {
+    this.loading = false;
   }
+}
 
   private async toast(message: string) {
     const t = await this.toastCtrl.create({ message, duration: 1600, position: 'top' });

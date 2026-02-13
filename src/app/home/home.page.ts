@@ -23,9 +23,9 @@ export class HomePage {
     const modal = await this.modalCtrl.create({
       component: LoginModalComponent,
       componentProps: {
-        redirectTo: '/dashboard',
-      },
-      cssClass: 'auth-modal', // ← CLAVE
+        redirectTo: '/dashboard'},
+      cssClass: 'auth-modal',
+      backdropDismiss: false, // ← CLAVE
     });
 
     await modal.present();

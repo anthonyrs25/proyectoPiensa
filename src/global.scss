@@ -53,3 +53,72 @@ ion-modal::part(backdrop),
 ion-modal::part(content) {
     pointer-events: auto !important;
 }
+
+/* ===== AUTH MODAL FIX (Vercel) ===== */
+ion-modal.auth-modal {
+  --width: 560px;
+  --height: auto;
+  --border-radius: 18px;
+}
+
+ion-modal.auth-modal::part(content) {
+  background: #0b0d12 !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+}
+
+/* Asegura que el contenido exista y sea interactivo */
+ion-modal.auth-modal ion-content {
+  --background: #0b0d12 !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Asegura scroll interno del modal (a veces queda colapsado) */
+ion-modal.auth-modal ion-content::part(scroll) {
+  padding: 16px !important;
+}
+
+/* Inputs visibles */
+ion-modal.auth-modal ion-list {
+  background: transparent !important;
+}
+
+ion-modal.auth-modal ion-item {
+  --background: rgba(255,255,255,.07) !important;
+  --border-color: rgba(255,255,255,.16) !important;
+  --highlight-color-focused: rgba(0,200,255,.8) !important;
+  margin: 10px 0 !important;
+  border-radius: 12px !important;
+}
+
+ion-modal.auth-modal ion-input {
+  --color: rgba(255,255,255,.95) !important;
+  color: rgba(255,255,255,.95) !important;
+  min-height: 44px !important;
+}
+
+ion-modal.auth-modal ion-label {
+  color: rgba(255,255,255,.75) !important;
+}
+
+/* Segment visible/clickeable */
+ion-modal.auth-modal ion-segment {
+  --background: rgba(255,255,255,.06) !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  border-radius: 12px !important;
+}
+
+ion-modal.auth-modal ion-segment-button {
+  --color: rgba(255,255,255,.75) !important;
+  --color-checked: rgba(255,255,255,.95) !important;
+  --indicator-color: rgba(0,200,255,.8) !important;
+}
+
+/* Por si tu landing tiene una capa que intercepta inputs */
+ion-modal.auth-modal,
+ion-modal.auth-modal * {
+  pointer-events: auto !important;
+}
