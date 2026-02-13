@@ -56,10 +56,14 @@ export class LoginModalComponent implements AfterViewInit {
         if (r.ok) this.mode = 'login';
       } else {
         const r = await this.auth.login(this.username, this.password);
+        console.log('LOGIN RESULT =>',r);
         await this.toast(r.message);
         if (r.ok) {
+          console.log('Navigate to =>', this.redirectTo);
+          if (this.redirectTo)
+            await this.router.navigateByUrl(this.redirectTo);
           await this.close({ ok: true });
-          if (this.redirectTo) this.router.navigateByUrl(this.redirectTo);
+    
         }
       }
     } finally {
