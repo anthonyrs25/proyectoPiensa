@@ -1,32 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  IonContent,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonButtons,
-  IonButton,
-  IonItem,
-  IonLabel,
-  IonInput
-} from '@ionic/angular/standalone';
-import { ModalController } from '@ionic/angular/standalone';
+import { FormsModule } from '@angular/forms';
+import { ModalController, IonicModule, ToastController } from '@ionic/angular';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login-modal',
   standalone: true,
-  imports: [
-    CommonModule,
-    IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonItem, IonLabel, IonInput
-  ],
+  imports: [IonicModule, CommonModule, FormsModule],
   templateUrl: './login-modal.component.html',
-  styleUrls: ['./login-modal.component.scss'],
 })
 export class LoginModalComponent {
-  constructor(private modalCtrl: ModalController) {}
+  @Input() redirectTo: string | null = '/dashboard';
 
-  close() {
-    this.modalCtrl.dismiss();
+  mode: 'login' | 'register' = 'login';
+
+  username = '';
+  password = '';
+  confirm = '';
+
+  loading = false;
+
+  constructor(
+    private modalCtrl: ModalController,
+    private auth: AuthService,
+    private toastCtrl: ToastController
+  ) {}
+
+  close(data?: any) {
+    return this.modalCtrl.dismiss(data);
+  }
+
+  async submit() {
+    this.loading = true;
+    try {
+      if (this.mode === 'register') {
+        if (this.password !== this.confirm) {
+          await this.toast('Las contraseñas no coinciden.');
+          return;
+        }
+        const r = await this.auth.register(this.username, this.password);
+        await this.toast(r.message);
+        if (r.ok) this.mode = 'login';
+      } else {
+        const r = await this.auth.login(this.username, this.password);
+        await this.toast(r.message);
+        if (r.ok) {
+          await this.close({ ok: true });
+          if (this.redirectTo) window.location.href = this.redirectTo;
+        }
+      }
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  private async toast(message: string) {
+    const t = await this.toastCtrl.create({ message, duration: 1600, position: 'top' });
+    await t.present();
   }
 }

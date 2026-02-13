@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">Salir</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h2>Bienvenido</h2>
+  <p *ngIf="auth.getSession() as s">Usuario: <b>{{ s.username }}</b></p>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Módulos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Aquí luego pones: Clientes, Vehículos, Servicios, Repuestos, etc.
+    </ion-card-content>
+  </ion-card>
+</ion-content>
