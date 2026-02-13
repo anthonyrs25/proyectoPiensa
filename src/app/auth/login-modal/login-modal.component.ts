@@ -43,6 +43,7 @@ export class LoginModalComponent implements AfterViewInit {
   }
 
   async submit() {
+    console.log('Submit', {mode:this.mode, username:this.username}),
     this.loading = true;
     try {
       if (this.mode === 'register') {
