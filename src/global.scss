@@ -6,11 +6,6 @@ html, body {
   font-family: 'Kumbh Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- */
-
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
 
@@ -20,7 +15,7 @@ html, body {
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
 
-/* Optional CSS utils that can be commented out */
+/* Optional CSS utils */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
@@ -30,16 +25,14 @@ html, body {
 /* Ionic Dark Mode */
 @import "@ionic/angular/css/palettes/dark.system.css";
 
-/* No fuerces un z-index exagerado global (puede romper overlays/toasts)
-   Si necesitas, mantenlo razonable */
+/* Mantén z-index razonable */
 ion-modal {
   z-index: 10000 !important;
 }
 
 /* =======================================================================
-   AUTH MODAL (Login) - FIX REAL PARA VERCEL
-   - Un solo bloque (sin duplicados)
-   - Afecta partes internas (shadow) de ion-item e ion-input
+   AUTH MODAL (Login) - CONFIG ÚNICA Y ESTABLE PARA VERCEL
+   Enfoque: ion-input directo (sin depender de ::part)
    ======================================================================= */
 
 ion-modal.auth-modal {
@@ -48,92 +41,77 @@ ion-modal.auth-modal {
   --border-radius: 18px;
 }
 
+/* Contenedor del modal */
 ion-modal.auth-modal::part(content) {
   background: #0b0d12 !important;
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
   border-radius: 18px !important;
-
-  /* CLAVE: si pones hidden, puedes “cortar” el contenido.
-     Dejamos hidden pero asegurando altura mínima estable. */
   overflow: hidden !important;
-  min-height: 520px !important;
+  min-height: 560px !important;
+
+  /* Asegura stacking correcto */
+  position: relative !important;
 }
 
-/* Asegura que el body del modal tenga altura y scroll correcto */
+/* Scroll del contenido */
 ion-modal.auth-modal ion-content {
   --background: #0b0d12 !important;
-  display: block !important;
-  min-height: 420px !important;
+  min-height: 460px !important;
 }
 
 ion-modal.auth-modal ion-content::part(scroll) {
   padding: 16px !important;
-  display: block !important;
-  min-height: 420px !important;
+  min-height: 460px !important;
 }
 
-/* Lista transparente (no “pinta” blanco) */
-ion-modal.auth-modal ion-list {
-  background: transparent !important;
+/* Form layout */
+ion-modal.auth-modal .auth-form {
+  display: grid !important;
+  gap: 12px !important;
 }
 
-/* ion-item: ojo, la caja visible real está en ::part(native) */
-ion-modal.auth-modal ion-item {
-  margin: 12px 0 !important;
+/* Inputs estilo */
+ion-modal.auth-modal ion-input.auth-input {
+  --background: rgba(255,255,255,.08) !important;
+  --color: rgba(255,255,255,.95) !important;
+  --placeholder-color: rgba(255,255,255,.55) !important;
+  --highlight-color-focused: rgba(0,200,255,.85) !important;
+
+  border: 1px solid rgba(255,255,255,.18) !important;
   border-radius: 12px !important;
-  --background: transparent !important; /* el fondo lo pone native */
-  --border-color: transparent !important;
-  --min-height: 64px !important;
-  min-height: 64px !important;
-}
-
-/* ESTE ES EL FIX CLAVE (shadow part) */
-ion-modal.auth-modal ion-item::part(native) {
-  min-height: 64px !important;
   padding: 10px 12px !important;
-  border-radius: 12px !important;
-
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
-
-  display: flex !important;
-  align-items: center !important;
+  min-height: 64px !important;
 
   opacity: 1 !important;
   visibility: visible !important;
 }
 
-/* ion-input + su parte nativa */
-ion-modal.auth-modal ion-input {
-  min-height: 44px !important;
-  display: block !important;
-  --color: rgba(255, 255, 255, 0.95) !important;
-  color: rgba(255, 255, 255, 0.95) !important;
-
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-/* Otra parte shadow importante */
-ion-modal.auth-modal ion-input::part(native) {
-  min-height: 44px !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-/* El input HTML real */
-ion-modal.auth-modal ion-input input {
-  color: rgba(255, 255, 255, 0.95) !important;
+/* FIX CRÍTICO: el input interno real (Vercel) */
+ion-modal.auth-modal ion-input.auth-input input,
+ion-modal.auth-modal ion-input.auth-input .native-input,
+ion-modal.auth-modal ion-input.auth-input textarea {
+  color: rgba(255,255,255,.95) !important;
   background: transparent !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+
+  /* evita que quede con height 0 */
+  min-height: 44px !important;
+  height: 44px !important;
+
+  /* asegura click y escritura */
+  pointer-events: auto !important;
 }
 
-/* Labels y placeholder */
+/* Labels */
 ion-modal.auth-modal ion-label,
 ion-modal.auth-modal .label-text {
   color: rgba(255, 255, 255, 0.75) !important;
 }
 
-/* Segment visible (Login/Registro) */
+/* Segment */
 ion-modal.auth-modal ion-segment {
   --background: rgba(255, 255, 255, 0.06) !important;
   border: 1px solid rgba(255, 255, 255, 0.10) !important;
@@ -146,50 +124,8 @@ ion-modal.auth-modal ion-segment-button {
   --indicator-color: rgba(0, 200, 255, 0.85) !important;
 }
 
-ion-modal.auth-modal .auth-form {
-  display: grid;
-  gap: 12px;
-}
-
-ion-modal.auth-modal ion-input.auth-input {
-  --background: rgba(255,255,255,.08);
-  --color: rgba(255,255,255,.95);
-  --placeholder-color: rgba(255,255,255,.55);
-  --highlight-color-focused: rgba(0,200,255,.85);
-  border: 1px solid rgba(255,255,255,.18);
-  border-radius: 12px;
-  padding: 10px 12px;
-  min-height: 64px;
-}
-
-ion-modal.auth-modal ion-input.auth-input input {
-  color: rgba(255,255,255,.95) !important;
-}
-
-/* ===== AUTH MODAL: permitir interacción real con inputs ===== */
+/* Interacción garantizada en el modal */
 ion-modal.auth-modal,
 ion-modal.auth-modal * {
-  pointer-events: auto !important;
-}
-
-/* Asegura que el contenido esté arriba de cualquier overlay propio */
-ion-modal.auth-modal::part(content) {
-  position: relative !important;
-  z-index: 10001 !important;
-}
-
-/* Si tu landing tiene capas con pointer-events, esto evita que tapen el modal */
-ion-modal.auth-modal + ion-backdrop {
-  pointer-events: auto !important;
-}
-
-/* Inputs clickeables */
-ion-modal.auth-modal ion-input {
-  pointer-events: auto !important;
-}
-
-/* El input HTML real */
-ion-modal.auth-modal ion-input input,
-ion-modal.auth-modal ion-input textarea {
   pointer-events: auto !important;
 }
