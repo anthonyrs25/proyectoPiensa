@@ -20,46 +20,25 @@
 
 <ion-content class="ion-padding">
  
- <form class="auth-form">
+ <div class="auth-form">
   <div class="field">
     <label>Usuario</label>
-    <input
-      class="native-field"
-      type="text"
-      name="username"
-      [(ngModel)]="username"
-      autocomplete="username"
-      required
-    />
+    <input #u class="native-field" type="text" autocomplete="username" />
   </div>
 
   <div class="field">
     <label>Contraseña</label>
-    <input
-      class="native-field"
-      type="password"
-      name="password"
-      [(ngModel)]="password"
-      autocomplete="current-password"
-      required
-    />
+    <input #p class="native-field" type="password" autocomplete="current-password" />
   </div>
 
   <div class="field" *ngIf="mode === 'register'">
     <label>Confirmar contraseña</label>
-    <input
-      class="native-field"
-      type="password"
-      name="confirm"
-      [(ngModel)]="confirm"
-      autocomplete="new-password"
-      required
-    />
+    <input #c class="native-field" type="password" autocomplete="new-password" />
   </div>
 
-  <ion-button expand="block" (click)="submit()" [disabled]="loading">
+  <ion-button expand="block" [disabled]="loading" (click)="submit(u.value, p.value, p?.value)">
     <ion-spinner slot="start" *ngIf="loading"></ion-spinner>
     {{ mode === 'login' ? 'Entrar' : 'Crear usuario' }}
   </ion-button>
-</form>
+</div>
 </ion-content>

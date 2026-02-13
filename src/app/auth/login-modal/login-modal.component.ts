@@ -41,35 +41,51 @@ export class LoginModalComponent implements AfterViewInit {
   close(data?: any) {
     return this.modalCtrl.dismiss(data);
   }
+async submit(user?: string, pass?: string, conf?: string) {
+  const username = (user ?? '').trim();
+  const password = (pass ?? '').trim();
+  const confirm  = (conf ?? '').trim();
 
-  async submit() {
-    console.log('Submit', {mode:this.mode, username:this.username}),
-    this.loading = true;
-    try {
-      if (this.mode === 'register') {
-        if (this.password !== this.confirm) {
-          await this.toast('Las contraseñas no coinciden.');
-          return;
-        }
-        const r = await this.auth.register(this.username, this.password);
-        await this.toast(r.message);
-        if (r.ok) this.mode = 'login';
-      } else {
-        const r = await this.auth.login(this.username, this.password);
-        console.log('LOGIN RESULT =>',r);
-        await this.toast(r.message);
-        if (r.ok) {
-          console.log('Navigate to =>', this.redirectTo);
-          if (this.redirectTo)
-            await this.router.navigateByUrl(this.redirectTo);
-          await this.close({ ok: true });
-    
-        }
+  console.log('SUBMIT DATA =>', { mode: this.mode, username, hasPass: !!password });
+
+  this.loading = true;
+  try {
+    if (this.mode === 'register') {
+      if (!username || !password) {
+        await this.toast('Usuario y contraseña son obligatorios.');
+        return;
       }
-    } finally {
-      this.loading = false;
+      if (password !== confirm) {
+        await this.toast('Las contraseñas no coinciden.');
+        return;
+      }
+      const r = await this.auth.register(username, password);
+      console.log('REGISTER RESULT =>', r);
+      await this.toast(r.message);
+      if (r.ok) this.mode = 'login';
+      return;
     }
+
+    // LOGIN
+    if (!username || !password) {
+      await this.toast('Usuario y contraseña son obligatorios.');
+      return;
+    }
+
+    const r = await this.auth.login(username, password);
+    console.log('LOGIN RESULT =>', r);
+    await this.toast(r.message);
+
+    if (r.ok) {
+      if (this.redirectTo) window.location.href = this.redirectTo;
+      await this.close({ ok: true });
+    }
+  } finally {
+    this.loading = false;
   }
+}
+  
+
 
   private async toast(message: string) {
     const t = await this.toastCtrl.create({
