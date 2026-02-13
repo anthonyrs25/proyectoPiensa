@@ -19,15 +19,17 @@ export class HomePage {
 
   constructor(private modalCtrl: ModalController) { }
 
-  async openLoginModal() {
-    const modal = await this.modalCtrl.create({
-      component: LoginModalComponent,
-      breakpoints: [0, 0.5, 0.75, 1],
-      initialBreakpoint: 0.75,
-      handle: true
-    });
-    await modal.present();
-  }
+async openLogin() {
+  const modal = await this.modalCtrl.create({
+    component: LoginModalComponent,
+    componentProps: {
+      redirectTo: '/dashboard',
+    },
+    cssClass: 'auth-modal', // ← CLAVE
+  });
+
+  await modal.present();
+}
 
   scrollTop() {
     this.content?.scrollToTop(500);
