@@ -77,8 +77,9 @@ async submit(user?: string, pass?: string, conf?: string) {
     await this.toast(r.message);
 
     if (r.ok) {
-      if (this.redirectTo) window.location.href = this.redirectTo;
-      await this.close({ ok: true });
+      await this.modalCtrl.dismiss({ ok: true });
+      if(this.redirectTo)await
+      this.router.navigateByUrl(this.redirectTo);
     }
   } finally {
     this.loading = false;

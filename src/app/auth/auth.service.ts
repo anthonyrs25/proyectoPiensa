@@ -1,64 +1,87 @@
 import { Injectable } from '@angular/core';
 
-type StoredUser = { username: string; passwordHash: string; createdAt: string };
+export interface AuthResult {
+  ok: boolean;
+  message: string;
+}
+
+type UserRecord = {
+  username: string;
+  password: string; // demo simple (NO producción)
+};
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private usersKey = 'motr_users';
-  private sessionKey = 'motr_session';
+  private USERS_KEY = 'motr_users';
+  private SESSION_KEY = 'motr_session';
 
-  async register(username: string, password: string): Promise<{ ok: boolean; message: string }> {
-    username = username.trim().toLowerCase();
-    if (!username || !password) return { ok: false, message: 'Usuario y contraseña son obligatorios.' };
-    if (password.length < 6) return { ok: false, message: 'La contraseña debe tener al menos 6 caracteres.' };
-
-    const users = this.getUsers();
-    if (users.some(u => u.username === username)) {
-      return { ok: false, message: 'Ese usuario ya existe.' };
+  private readUsers(): UserRecord[] {
+    try {
+      const raw = localStorage.getItem(this.USERS_KEY);
+      return raw ? (JSON.parse(raw) as UserRecord[]) : [];
+    } catch {
+      return [];
     }
-
-    const passwordHash = await this.sha256(password);
-    users.push({ username, passwordHash, createdAt: new Date().toISOString() });
-    localStorage.setItem(this.usersKey, JSON.stringify(users));
-    return { ok: true, message: 'Usuario creado. Ahora inicia sesión.' };
   }
 
-  async login(username: string, password: string): Promise<{ ok: boolean; message: string }> {
-    username = username.trim().toLowerCase();
-    if (!username || !password) return { ok: false, message: 'Usuario y contraseña son obligatorios.' };
-
-    const users = this.getUsers();
-    const user = users.find(u => u.username === username);
-    if (!user) return { ok: false, message: 'Usuario o contraseña incorrectos.' };
-
-    const passwordHash = await this.sha256(password);
-    if (passwordHash !== user.passwordHash) return { ok: false, message: 'Usuario o contraseña incorrectos.' };
-
-    localStorage.setItem(this.sessionKey, JSON.stringify({ username, loginAt: new Date().toISOString() }));
-    return { ok: true, message: 'Login correcto.' };
-  }
-
-  logout(): void {
-    localStorage.removeItem(this.sessionKey);
+  private writeUsers(users: UserRecord[]) {
+    localStorage.setItem(this.USERS_KEY, JSON.stringify(users));
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem(this.sessionKey);
+    return !!localStorage.getItem(this.SESSION_KEY);
   }
 
-  getSession(): { username: string; loginAt: string } | null {
-    const raw = localStorage.getItem(this.sessionKey);
-    return raw ? JSON.parse(raw) : null;
+  currentUser(): string | null {
+    return localStorage.getItem(this.SESSION_KEY);
   }
 
-  private getUsers(): StoredUser[] {
-    const raw = localStorage.getItem(this.usersKey);
-    return raw ? JSON.parse(raw) : [];
+  logout() {
+    localStorage.removeItem(this.SESSION_KEY);
   }
 
-  private async sha256(text: string): Promise<string> {
-    const enc = new TextEncoder().encode(text);
-    const buf = await crypto.subtle.digest('SHA-256', enc);
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  async register(username: string, password: string): Promise<AuthResult> {
+    username = (username ?? '').trim();
+    password = (password ?? '').trim();
+
+    if (!username || !password) {
+      return { ok: false, message: 'Usuario y contraseña son obligatorios.' };
+    }
+
+    const users = this.readUsers();
+    const exists = users.some(u => u.username.toLowerCase() === username.toLowerCase());
+    if (exists) {
+      return { ok: false, message: 'Ese usuario ya existe. Usa otro.' };
+    }
+
+    users.push({ username, password });
+    this.writeUsers(users);
+
+    return { ok: true, message: 'Usuario creado. Ahora inicia sesión.' };
+  }
+
+  async login(username: string, password: string): Promise<AuthResult> {
+    username = (username ?? '').trim();
+    password = (password ?? '').trim();
+
+    if (!username || !password) {
+      return { ok: false, message: 'Usuario y contraseña son obligatorios.' };
+    }
+
+    const users = this.readUsers();
+    const found = users.find(
+      u =>
+        u.username.toLowerCase() === username.toLowerCase() &&
+        u.password === password
+    );
+
+    if (!found) {
+      return { ok: false, message: 'Credenciales incorrectas o usuario no registrado.' };
+    }
+
+    // sesión
+    localStorage.setItem(this.SESSION_KEY, found.username);
+
+    return { ok: true, message: 'Bienvenido.' };
   }
 }

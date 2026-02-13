@@ -42,8 +42,8 @@
         <div style="margin-top:14px; padding:10px;">
           <div style="color: rgba(255,255,255,.62); font-size:12px;">Sesión</div>
           <div style="color: rgba(255,255,255,.92); font-weight:700; margin-top:4px;"
-               *ngIf="auth.getSession() as s">
-            {{ s.username }}
+               *ngIf="auth.currentUser() as username">
+            {{ username }}
           </div>
 
           <button class="action" style="width:100%; margin-top:10px;" (click)="logout()">
