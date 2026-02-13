@@ -1,63 +1,42 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Acceso</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="close()">Cerrar</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="mode">
-      <ion-segment-button value="login">
-        <ion-label>Login</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="register">
-        <ion-label>Registro</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-padding">
-  <ion-list>
-    <ion-item>
-      <ion-input
-        label="Usuario"
-        labelPlacement="stacked"
-        [(ngModel)]="username"
-        autocomplete="username"
-      ></ion-input>
-    </ion-item>
+  <div class="auth-form">
+    <ion-input
+      class="auth-input"
+      label="Usuario"
+      labelPlacement="stacked"
+      [(ngModel)]="username"
+      autocomplete="username"
+      inputmode="text"
+    ></ion-input>
 
-    <ion-item>
-      <ion-input
-        label="Contraseña"
-        labelPlacement="stacked"
-        [(ngModel)]="password"
-        type="password"
-        autocomplete="current-password"
-      ></ion-input>
-    </ion-item>
+    <ion-input
+      class="auth-input"
+      label="Contraseña"
+      labelPlacement="stacked"
+      [(ngModel)]="password"
+      type="password"
+      autocomplete="current-password"
+    ></ion-input>
 
-    <ion-item *ngIf="mode === 'register'">
-      <ion-input
-        label="Confirmar contraseña"
-        labelPlacement="stacked"
-        [(ngModel)]="confirm"
-        type="password"
-        autocomplete="new-password"
-      ></ion-input>
-    </ion-item>
-  </ion-list>
+    <ion-input
+      *ngIf="mode === 'register'"
+      class="auth-input"
+      label="Confirmar contraseña"
+      labelPlacement="stacked"
+      [(ngModel)]="confirm"
+      type="password"
+      autocomplete="new-password"
+    ></ion-input>
 
-  <ion-button expand="block" [disabled]="loading" (click)="submit()">
-    <ion-spinner slot="start" *ngIf="loading"></ion-spinner>
-    {{ mode === 'login' ? 'Entrar' : 'Crear usuario' }}
-  </ion-button>
+    <ion-button expand="block" [disabled]="loading" (click)="submit()">
+      <ion-spinner slot="start" *ngIf="loading"></ion-spinner>
+      {{ mode === 'login' ? 'Entrar' : 'Crear usuario' }}
+    </ion-button>
 
-  <ion-text color="medium">
-    <p style="text-align:center; margin-top:12px;">
-      Demo: credenciales se guardan en el navegador (localStorage)
-    </p>
-  </ion-text>
+    <ion-text color="medium">
+      <p style="text-align:center; margin-top:12px;">
+        Demo: credenciales se guardan en el navegador (localStorage)
+      </p>
+    </ion-text>
+  </div>
 </ion-content>
