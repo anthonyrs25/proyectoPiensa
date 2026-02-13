@@ -106,3 +106,67 @@ ion-modal.auth-modal ion-segment {
   border: 1px solid rgba(255,255,255,.10) !important;
   border-radius: 12px !important;
 }
+
+/* ===== FIX: Inputs invisibles dentro del login modal (Vercel) ===== */
+ion-modal.auth-modal::part(content) {
+  background: #0b0d12 !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 18px !important;
+  min-height: 420px !important;
+  overflow: visible !important;
+}
+
+ion-modal.auth-modal ion-content {
+  --background: #0b0d12 !important;
+  height: 100% !important;
+  min-height: 320px !important;
+}
+
+ion-modal.auth-modal ion-content::part(scroll) {
+  padding: 16px !important;
+  min-height: 320px !important;
+}
+
+/* El problema real: ion-item/ion-input quedan transparentes o con height 0 */
+ion-modal.auth-modal ion-list {
+  background: transparent !important;
+}
+
+ion-modal.auth-modal ion-item {
+  --background: rgba(255,255,255,.08) !important;
+  --border-color: rgba(255,255,255,.16) !important;
+  --min-height: 56px !important;
+  min-height: 56px !important;
+  border-radius: 12px !important;
+  margin: 10px 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+ion-modal.auth-modal ion-input {
+  --color: rgba(255,255,255,.95) !important;
+  color: rgba(255,255,255,.95) !important;
+  min-height: 44px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Labels y placeholders en dark */
+ion-modal.auth-modal ion-label,
+ion-modal.auth-modal .label-text,
+ion-modal.auth-modal .native-input,
+ion-modal.auth-modal input {
+  color: rgba(255,255,255,.85) !important;
+}
+
+/* Segment visible */
+ion-modal.auth-modal ion-segment {
+  --background: rgba(255,255,255,.06) !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  border-radius: 12px !important;
+}
+ion-modal.auth-modal ion-segment-button {
+  --color: rgba(255,255,255,.75) !important;
+  --color-checked: rgba(255,255,255,.95) !important;
+  --indicator-color: rgba(0,200,255,.85) !important;
+}
