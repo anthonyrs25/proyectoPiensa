@@ -1,29 +1,20 @@
-import { Component, Input, viewChild, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonInput, ModalController, IonicModule, ToastController } from '@ionic/angular';
-import { AuthService } from '../auth.service';
+import { IonicModule, IonInput, ModalController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login-modal',
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule],
   templateUrl: './login-modal.component.html',
-  styleUrls:['./login-modal.component.scss'],
 })
-
-@Component({
-  selector: 'app-login-modal',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './login-modal.component.html',
-})
-export class LoginModalComponent {
+export class LoginModalComponent implements AfterViewInit {
   @Input() redirectTo: string | null = '/dashboard';
 
-  @ViewChild('userInput') userInput!: IonInput;
-  @ViewChild('passInput') passInput!: IonInput;
+  @ViewChild('userInput', { static: false }) userInput?: IonInput;
 
   mode: 'login' | 'register' = 'login';
   username = '';
@@ -38,8 +29,13 @@ export class LoginModalComponent {
     private router: Router
   ) {}
 
-  ionViewDidEnter() {
-    setTimeout(() => this.userInput?.setFocus(), 150);
+  ngAfterViewInit() {
+    // Dar tiempo a que el modal termine de pintar en producción
+    setTimeout(async () => {
+      try {
+        await this.userInput?.setFocus();
+      } catch {}
+    }, 350);
   }
 
   close(data?: any) {
