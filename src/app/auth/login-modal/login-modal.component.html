@@ -21,6 +21,7 @@
 <ion-content class="ion-padding">
   <div class="auth-form">
     <ion-input
+      #userInput
       class="auth-input"
       label="Usuario"
       labelPlacement="stacked"
@@ -30,6 +31,7 @@
     ></ion-input>
 
     <ion-input
+      #passInput
       class="auth-input"
       label="Contraseña"
       labelPlacement="stacked"
@@ -52,11 +54,5 @@
       <ion-spinner slot="start" *ngIf="loading"></ion-spinner>
       {{ mode === 'login' ? 'Entrar' : 'Crear usuario' }}
     </ion-button>
-
-    <ion-text color="medium">
-      <p style="text-align:center; margin-top:12px;">
-        Demo: credenciales se guardan en el navegador (localStorage)
-      </p>
-    </ion-text>
   </div>
 </ion-content>
