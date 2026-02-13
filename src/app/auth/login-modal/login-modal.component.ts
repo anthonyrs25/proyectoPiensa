@@ -41,6 +41,12 @@ export class LoginModalComponent implements AfterViewInit {
   close(data?: any) {
     return this.modalCtrl.dismiss(data);
   }
+
+  onModeChange(ev: any) {
+  const v = ev?.detail?.value;
+  this.mode = (v === 'register' ? 'register' : 'login');
+}
+
 async submit(user?: string, pass?: string, conf?: string) {
   const username = (user ?? '').trim();
   const password = (pass ?? '').trim();
