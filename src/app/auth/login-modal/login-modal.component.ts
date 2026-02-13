@@ -9,6 +9,7 @@ import { AuthService } from '../auth.service';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule],
   templateUrl: './login-modal.component.html',
+  styleUrls:['./login-modal.component.scss']
 })
 export class LoginModalComponent {
   @Input() redirectTo: string | null = '/dashboard';

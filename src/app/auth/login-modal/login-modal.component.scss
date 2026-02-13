@@ -1,40 +1,29 @@
-.login-card {
-  max-width: 420px;
-  margin: 22px auto;
-  padding: 18px 16px;
-
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(15, 18, 20, 0.10);
-
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+:host {
+  display: block;
 }
 
-.login-card h2 {
-  margin: 0 0 6px;
-  font-size: 22px;
-  font-weight: 800;
+/* Asegura que el contenido sea visible y clickeable */
+ion-content {
+  --background: #0b0d12;
+  pointer-events: auto !important;
 }
 
-.login-card p {
-  margin: 0 0 14px;
-  color: rgba(15, 18, 20, 0.75);
-  font-size: 14px;
+/* Asegura que los items se vean (bordes/fondo) en dark */
+ion-item {
+  --background: rgba(255, 255, 255, 0.06);
+  --border-color: rgba(255, 255, 255, 0.14);
+  --highlight-color-focused: rgba(0, 200, 255, 0.7);
+  border-radius: 12px;
+  margin-bottom: 10px;
 }
 
-.actions {
-  margin-top: 16px;
-  display: grid;
-  gap: 10px;
+/* Asegura texto visible */
+ion-input {
+  --color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.92) !important;
 }
 
-.btn-primary {
-  --border-radius: 12px;
-  --background: linear-gradient(90deg, #1f7cff 0%, #5b2dff 45%, #ff2d8d 100%);
-  --color: rgba(255, 255, 255, 0.96);
-}
-
-.btn-secondary {
-  --color: rgba(15, 18, 20, 0.75);
+/* Segment clickable y visible */
+ion-segment {
+  pointer-events: auto !important;
 }
