@@ -1,21 +1,14 @@
 :root {
-    --ion-font-family: 'Kumbh Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ion-font-family: 'Kumbh Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 html, body {
-    font-family: 'Kumbh Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Kumbh Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
-
 
 /*
  * App Global CSS
  * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
 /* Core CSS required for Ionic components to work properly */
@@ -34,22 +27,21 @@ html, body {
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+/* Ionic Dark Mode */
+@import "@ionic/angular/css/palettes/dark.system.css";
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
-
+/* No fuerces un z-index exagerado global (puede romper overlays/toasts)
+   Si necesitas, mantenlo razonable */
 ion-modal {
-    z-index: 999999 !important;
+  z-index: 10000 !important;
 }
 
-/* ===== AUTH MODAL FIX (SAFE) ===== */
+/* =======================================================================
+   AUTH MODAL (Login) - FIX REAL PARA VERCEL
+   - Un solo bloque (sin duplicados)
+   - Afecta partes internas (shadow) de ion-item e ion-input
+   ======================================================================= */
+
 ion-modal.auth-modal {
   --width: min(560px, 92vw);
   --height: auto;
@@ -58,115 +50,98 @@ ion-modal.auth-modal {
 
 ion-modal.auth-modal::part(content) {
   background: #0b0d12 !important;
-  border: 1px solid rgba(255,255,255,.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
   border-radius: 18px !important;
 
-  /* CLAVE: permitir que el contenido tenga altura */
-  overflow: visible !important;
-  min-height: 420px !important;
+  /* CLAVE: si pones hidden, puedes “cortar” el contenido.
+     Dejamos hidden pero asegurando altura mínima estable. */
+  overflow: hidden !important;
+  min-height: 520px !important;
 }
 
-/* CLAVE: ion-content debe tener altura */
+/* Asegura que el body del modal tenga altura y scroll correcto */
 ion-modal.auth-modal ion-content {
   --background: #0b0d12 !important;
-  height: 100% !important;
-  min-height: 320px !important;
   display: block !important;
-}
-
-/* CLAVE: el scroll interno no debe “aplastar” el contenido */
-ion-modal.auth-modal ion-content::part(scroll) {
-  padding: 16px !important;
-  display: block !important;
-  min-height: 320px !important;
-}
-
-/* Inputs visibles */
-ion-modal.auth-modal ion-item {
-  --background: rgba(255,255,255,.07) !important;
-  --border-color: rgba(255,255,255,.16) !important;
-  --highlight-color-focused: rgba(0,200,255,.8) !important;
-  margin: 10px 0 !important;
-  border-radius: 12px !important;
-}
-
-ion-modal.auth-modal ion-input {
-  --color: rgba(255,255,255,.95) !important;
-  color: rgba(255,255,255,.95) !important;
-  min-height: 44px !important;
-}
-
-ion-modal.auth-modal ion-label {
-  color: rgba(255,255,255,.75) !important;
-}
-
-/* Segment visible */
-ion-modal.auth-modal ion-segment {
-  --background: rgba(255,255,255,.06) !important;
-  border: 1px solid rgba(255,255,255,.10) !important;
-  border-radius: 12px !important;
-}
-
-/* ===== FIX: Inputs invisibles dentro del login modal (Vercel) ===== */
-ion-modal.auth-modal::part(content) {
-  background: #0b0d12 !important;
-  border: 1px solid rgba(255,255,255,.12) !important;
-  border-radius: 18px !important;
   min-height: 420px !important;
-  overflow: visible !important;
-}
-
-ion-modal.auth-modal ion-content {
-  --background: #0b0d12 !important;
-  height: 100% !important;
-  min-height: 320px !important;
 }
 
 ion-modal.auth-modal ion-content::part(scroll) {
   padding: 16px !important;
-  min-height: 320px !important;
+  display: block !important;
+  min-height: 420px !important;
 }
 
-/* El problema real: ion-item/ion-input quedan transparentes o con height 0 */
+/* Lista transparente (no “pinta” blanco) */
 ion-modal.auth-modal ion-list {
   background: transparent !important;
 }
 
+/* ion-item: ojo, la caja visible real está en ::part(native) */
 ion-modal.auth-modal ion-item {
-  --background: rgba(255,255,255,.08) !important;
-  --border-color: rgba(255,255,255,.16) !important;
-  --min-height: 56px !important;
-  min-height: 56px !important;
+  margin: 12px 0 !important;
   border-radius: 12px !important;
-  margin: 10px 0 !important;
-  display: flex !important;
-  align-items: center !important;
+  --background: transparent !important; /* el fondo lo pone native */
+  --border-color: transparent !important;
+  --min-height: 64px !important;
+  min-height: 64px !important;
 }
 
+/* ESTE ES EL FIX CLAVE (shadow part) */
+ion-modal.auth-modal ion-item::part(native) {
+  min-height: 64px !important;
+  padding: 10px 12px !important;
+  border-radius: 12px !important;
+
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+
+  display: flex !important;
+  align-items: center !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* ion-input + su parte nativa */
 ion-modal.auth-modal ion-input {
-  --color: rgba(255,255,255,.95) !important;
-  color: rgba(255,255,255,.95) !important;
+  min-height: 44px !important;
+  display: block !important;
+  --color: rgba(255, 255, 255, 0.95) !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Otra parte shadow importante */
+ion-modal.auth-modal ion-input::part(native) {
   min-height: 44px !important;
   opacity: 1 !important;
   visibility: visible !important;
 }
 
-/* Labels y placeholders en dark */
-ion-modal.auth-modal ion-label,
-ion-modal.auth-modal .label-text,
-ion-modal.auth-modal .native-input,
-ion-modal.auth-modal input {
-  color: rgba(255,255,255,.85) !important;
+/* El input HTML real */
+ion-modal.auth-modal ion-input input {
+  color: rgba(255, 255, 255, 0.95) !important;
+  background: transparent !important;
 }
 
-/* Segment visible */
+/* Labels y placeholder */
+ion-modal.auth-modal ion-label,
+ion-modal.auth-modal .label-text {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* Segment visible (Login/Registro) */
 ion-modal.auth-modal ion-segment {
-  --background: rgba(255,255,255,.06) !important;
-  border: 1px solid rgba(255,255,255,.10) !important;
+  --background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
   border-radius: 12px !important;
 }
+
 ion-modal.auth-modal ion-segment-button {
-  --color: rgba(255,255,255,.75) !important;
-  --color-checked: rgba(255,255,255,.95) !important;
-  --indicator-color: rgba(0,200,255,.85) !important;
+  --color: rgba(255, 255, 255, 0.75) !important;
+  --color-checked: rgba(255, 255, 255, 0.95) !important;
+  --indicator-color: rgba(0, 200, 255, 0.85) !important;
 }
