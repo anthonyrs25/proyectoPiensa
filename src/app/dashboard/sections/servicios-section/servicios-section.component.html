@@ -1,0 +1,50 @@
+<div class="header">
+  <div>
+    <h3>Servicios</h3>
+    <p>Catálogo • usado en Proformas y Órdenes</p>
+  </div>
+  <ion-searchbar [(ngModel)]="q" placeholder="Buscar servicio..."></ion-searchbar>
+</div>
+
+<div class="grid">
+  <div class="panel">
+    <h4>{{ codigoServicio ? 'Editar servicio' : 'Nuevo servicio' }}</h4>
+
+    <ion-item>
+      <ion-input label="Descripción" labelPlacement="stacked" [(ngModel)]="descripcion"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Precio" labelPlacement="stacked" type="number" [(ngModel)]="precio"></ion-input>
+    </ion-item>
+
+    <div class="row">
+      <button class="btn" (click)="save()">Guardar</button>
+      <button class="btn ghost" (click)="reset()">Limpiar</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h4>Listado</h4>
+
+    <div class="table">
+      <div class="thead">
+        <div>Código</div>
+        <div>Descripción</div>
+        <div>Precio</div>
+        <div>Acciones</div>
+      </div>
+
+      <div class="trow" *ngFor="let s of filtered">
+        <div>#{{ s.codigoServicio }}</div>
+        <div class="strong">{{ s.descripcion }}</div>
+        <div class="muted">$ {{ s.precio }}</div>
+        <div class="actions">
+          <button class="mini" (click)="edit(s)">Editar</button>
+          <button class="mini danger" (click)="remove(s.codigoServicio)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

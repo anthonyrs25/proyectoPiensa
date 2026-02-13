@@ -1,0 +1,85 @@
+<div class="header">
+  <div>
+    <h3>Clientes</h3>
+    <p>Persona / Empresa • Pertenece Vehículo</p>
+  </div>
+
+  <ion-searchbar [(ngModel)]="q" placeholder="Buscar cliente..."></ion-searchbar>
+</div>
+
+<div class="grid">
+  <div class="panel">
+    <h4>{{ codigoCliente ? 'Editar cliente' : 'Nuevo cliente' }}</h4>
+
+    <ion-segment [(ngModel)]="tipo">
+      <ion-segment-button value="PERSONA"><ion-label>Persona</ion-label></ion-segment-button>
+      <ion-segment-button value="EMPRESA"><ion-label>Empresa</ion-label></ion-segment-button>
+    </ion-segment>
+
+    <ion-item>
+      <ion-input label="Nombre / Razón social" labelPlacement="stacked" [(ngModel)]="nombre"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="tipo==='PERSONA'">
+      <ion-input label="Apellido" labelPlacement="stacked" [(ngModel)]="apellido"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="tipo==='PERSONA'">
+      <ion-input label="Cédula" labelPlacement="stacked" [(ngModel)]="cedula"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="tipo==='EMPRESA'">
+      <ion-input label="RUC" labelPlacement="stacked" [(ngModel)]="ruc"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Dirección" labelPlacement="stacked" [(ngModel)]="direccion"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Teléfono" labelPlacement="stacked" [(ngModel)]="telefono"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Correo" labelPlacement="stacked" [(ngModel)]="correo"></ion-input>
+    </ion-item>
+
+    <div class="row">
+      <button class="btn" (click)="save()">Guardar</button>
+      <button class="btn ghost" (click)="resetForm()">Limpiar</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h4>Listado</h4>
+
+    <div class="table">
+      <div class="thead">
+        <div>Código</div>
+        <div>Tipo</div>
+        <div>Nombre</div>
+        <div>Contacto</div>
+        <div>Acciones</div>
+      </div>
+
+      <div class="trow" *ngFor="let c of filtered">
+        <div>#{{ c.codigoCliente }}</div>
+        <div>{{ c.tipo }}</div>
+        <div>
+          <div class="strong">{{ c.nombre }} <span *ngIf="c.apellido"> {{ c.apellido }}</span></div>
+          <div class="muted" *ngIf="c.tipo==='PERSONA'">CI: {{ c.cedula }}</div>
+          <div class="muted" *ngIf="c.tipo==='EMPRESA'">RUC: {{ c.ruc }}</div>
+        </div>
+        <div>
+          <div class="muted">{{ c.telefono }}</div>
+          <div class="muted">{{ c.correo }}</div>
+        </div>
+        <div class="actions">
+          <button class="mini" (click)="edit(c)">Editar</button>
+          <button class="mini danger" (click)="remove(c.codigoCliente)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,121 @@
+<div class="header">
+  <div>
+    <h3>Órdenes de Trabajo</h3>
+    <p>Genera Personal • Registra Servicios/Repuestos</p>
+  </div>
+  <ion-searchbar [(ngModel)]="q" placeholder="Buscar OT..."></ion-searchbar>
+</div>
+
+<div class="grid">
+  <div class="panel">
+    <h4>{{ editingId ? 'Editar OT' : 'Nueva OT' }}</h4>
+
+    <ion-item>
+      <ion-input label="Fecha" labelPlacement="stacked" type="date" [(ngModel)]="fecha"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-select label="Cliente" labelPlacement="stacked" [(ngModel)]="codigoCliente" placeholder="Selecciona cliente">
+        <ion-select-option *ngFor="let c of store.clientes" [value]="c.codigoCliente">
+          #{{ c.codigoCliente }} — {{ c.tipo === 'PERSONA' ? (c.nombre + ' ' + (c.apellido ?? '')) : c.nombre }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-select label="Placa (del cliente)" labelPlacement="stacked" [(ngModel)]="placa" placeholder="Selecciona placa">
+        <ion-select-option *ngFor="let v of vehiculosDelCliente()" [value]="v.placa">
+          {{ v.placa }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-select label="Generado por (Personal)" labelPlacement="stacked" [(ngModel)]="generadoPorCedula" placeholder="Selecciona personal">
+        <ion-select-option *ngFor="let p of store.personal" [value]="p.cedula">
+          {{ p.nombre }} {{ p.apellido }} — {{ p.rol }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <div class="sub">
+      <div class="subtitle">Agregar servicio</div>
+      <div class="inline">
+        <ion-select [(ngModel)]="addServicioId" placeholder="Servicio">
+          <ion-select-option *ngFor="let s of store.servicios" [value]="s.codigoServicio">
+            #{{ s.codigoServicio }} — {{ s.descripcion }} (${{ s.precio }})
+          </ion-select-option>
+        </ion-select>
+
+        <ion-input type="number" [(ngModel)]="addServicioCant"></ion-input>
+        <button class="mini" (click)="addServicio()">Agregar</button>
+      </div>
+
+      <div class="chips" *ngIf="itemsServicios.length">
+        <div class="chip" *ngFor="let i of itemsServicios">
+          {{ servicioLabel(i.codigoServicio) }} × {{ i.cantidad }}
+          <button class="x" (click)="removeServ(i.codigoServicio)">✕</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <div class="subtitle">Agregar repuesto</div>
+      <div class="inline">
+        <ion-select [(ngModel)]="addRepuestoId" placeholder="Repuesto">
+          <ion-select-option *ngFor="let r of store.repuestos" [value]="r.codigoRepuesto">
+            #{{ r.codigoRepuesto }} — {{ r.descripcion }} (${{ r.pvp }})
+          </ion-select-option>
+        </ion-select>
+
+        <ion-input type="number" [(ngModel)]="addRepuestoCant"></ion-input>
+        <button class="mini" (click)="addRepuesto()">Agregar</button>
+      </div>
+
+      <div class="chips" *ngIf="itemsRepuestos.length">
+        <div class="chip" *ngFor="let i of itemsRepuestos">
+          {{ repuestoLabel(i.codigoRepuesto) }} × {{ i.cantidad }}
+          <button class="x" (click)="removeRep(i.codigoRepuesto)">✕</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="total">
+      Total estimado: <b>$ {{ total() }}</b>
+    </div>
+
+    <div class="row">
+      <button class="btn" (click)="save()">Guardar</button>
+      <button class="btn ghost" (click)="reset()">Limpiar</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h4>Listado</h4>
+
+    <div class="table">
+      <div class="thead">
+        <div>Código</div>
+        <div>Cliente / Placa</div>
+        <div>Personal</div>
+        <div>Total</div>
+        <div>Acciones</div>
+      </div>
+
+      <div class="trow" *ngFor="let o of filtered">
+        <div>#{{ o.codigoOrden }}</div>
+        <div>
+          <div class="strong">{{ clienteLabel(o.codigoCliente) }}</div>
+          <div class="muted">{{ o.placa }} • {{ o.fecha | date:'yyyy-MM-dd' }}</div>
+        </div>
+        <div class="muted">{{ personalLabel(o.generadoPorCedula) }}</div>
+        <div class="muted">$ {{totalOrden(o)}}</div>
+        <div class="actions">
+          <button class="mini" (click)="edit(o)">Editar</button>
+          <button class="mini danger" (click)="remove(o.codigoOrden)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

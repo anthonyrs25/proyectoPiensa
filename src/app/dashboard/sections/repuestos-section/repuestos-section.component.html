@@ -1,0 +1,54 @@
+<div class="header">
+  <div>
+    <h3>Repuestos</h3>
+    <p>Inventario (demo) • usado en Proformas y Órdenes</p>
+  </div>
+  <ion-searchbar [(ngModel)]="q" placeholder="Buscar repuesto..."></ion-searchbar>
+</div>
+
+<div class="grid">
+  <div class="panel">
+    <h4>{{ codigoRepuesto ? 'Editar repuesto' : 'Nuevo repuesto' }}</h4>
+
+    <ion-item>
+      <ion-input label="Descripción" labelPlacement="stacked" [(ngModel)]="descripcion"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Costo" labelPlacement="stacked" type="number" [(ngModel)]="costo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="PVP" labelPlacement="stacked" type="number" [(ngModel)]="pvp"></ion-input>
+    </ion-item>
+
+    <div class="row">
+      <button class="btn" (click)="save()">Guardar</button>
+      <button class="btn ghost" (click)="reset()">Limpiar</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h4>Listado</h4>
+
+    <div class="table">
+      <div class="thead">
+        <div>Código</div>
+        <div>Descripción</div>
+        <div>Costos</div>
+        <div>Acciones</div>
+      </div>
+
+      <div class="trow" *ngFor="let r of filtered">
+        <div>#{{ r.codigoRepuesto }}</div>
+        <div class="strong">{{ r.descripcion }}</div>
+        <div class="muted">Costo: ${{ r.costo }} • PVP: ${{ r.pvp }}</div>
+        <div class="actions">
+          <button class="mini" (click)="edit(r)">Editar</button>
+          <button class="mini danger" (click)="remove(r.codigoRepuesto)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

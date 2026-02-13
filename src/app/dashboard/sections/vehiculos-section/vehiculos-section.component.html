@@ -1,0 +1,74 @@
+<div class="header">
+  <div>
+    <h3>Vehículos</h3>
+    <p>Pertenece a Cliente (N:1) • Registrado por Personal (futuro)</p>
+  </div>
+
+  <ion-searchbar [(ngModel)]="q" placeholder="Buscar vehículo..."></ion-searchbar>
+</div>
+
+<div class="grid">
+  <div class="panel">
+    <h4>{{ editingPlaca ? 'Editar vehículo' : 'Registrar vehículo' }}</h4>
+
+    <ion-item>
+      <ion-select label="Cliente" labelPlacement="stacked" [(ngModel)]="codigoCliente" placeholder="Selecciona cliente">
+        <ion-select-option *ngFor="let c of store.clientes" [value]="c.codigoCliente">
+          #{{ c.codigoCliente }} — {{ c.tipo === 'PERSONA' ? (c.nombre + ' ' + (c.apellido ?? '')) : c.nombre }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Placa" labelPlacement="stacked" [(ngModel)]="placa"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Marca" labelPlacement="stacked" [(ngModel)]="marca"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Modelo" labelPlacement="stacked" [(ngModel)]="modelo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Año" labelPlacement="stacked" type="number" [(ngModel)]="anio"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Cilindraje" labelPlacement="stacked" [(ngModel)]="cilindraje"></ion-input>
+    </ion-item>
+
+    <div class="row">
+      <button class="btn" (click)="save()">Guardar</button>
+      <button class="btn ghost" (click)="reset()">Limpiar</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h4>Listado</h4>
+
+    <div class="table">
+      <div class="thead">
+        <div>Placa</div>
+        <div>Vehículo</div>
+        <div>Cliente</div>
+        <div>Acciones</div>
+      </div>
+
+      <div class="trow" *ngFor="let v of filtered">
+        <div class="strong">{{ v.placa }}</div>
+        <div>
+          <div class="muted">{{ v.marca }} — {{ v.modelo }}</div>
+          <div class="muted">Año: {{ v.anio }} • {{ v.cilindraje }}</div>
+        </div>
+        <div class="muted">{{ clientLabel(v.codigoCliente) }}</div>
+        <div class="actions">
+          <button class="mini" (click)="edit(v)">Editar</button>
+          <button class="mini danger" (click)="remove(v.placa)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
