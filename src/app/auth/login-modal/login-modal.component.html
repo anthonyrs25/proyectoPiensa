@@ -19,52 +19,47 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form class="auth-form" (ngSubmit)="submit()">
-    <div class="field">
-      <label>Usuario</label>
-      <input
-        class="native-field"
-        name="username"
-        [(ngModel)]="username"
-        autocomplete="username"
-        inputmode="text"
-        required
-      />
-    </div>
+ 
+ <form class="auth-form">
+  <div class="field">
+    <label>Usuario</label>
+    <input
+      class="native-field"
+      type="text"
+      name="username"
+      [(ngModel)]="username"
+      autocomplete="username"
+      required
+    />
+  </div>
 
-    <div class="field">
-      <label>Contraseña</label>
-      <input
-        class="native-field"
-        name="password"
-        [(ngModel)]="password"
-        type="password"
-        autocomplete="current-password"
-        required
-      />
-    </div>
+  <div class="field">
+    <label>Contraseña</label>
+    <input
+      class="native-field"
+      type="password"
+      name="password"
+      [(ngModel)]="password"
+      autocomplete="current-password"
+      required
+    />
+  </div>
 
-    <div class="field" *ngIf="mode === 'register'">
-      <label>Confirmar contraseña</label>
-      <input
-        class="native-field"
-        name="confirm"
-        [(ngModel)]="confirm"
-        type="password"
-        autocomplete="new-password"
-        required
-      />
-    </div>
+  <div class="field" *ngIf="mode === 'register'">
+    <label>Confirmar contraseña</label>
+    <input
+      class="native-field"
+      type="password"
+      name="confirm"
+      [(ngModel)]="confirm"
+      autocomplete="new-password"
+      required
+    />
+  </div>
 
-    <ion-button expand="block" type="submit" [disabled]="loading">
-      <ion-spinner slot="start" *ngIf="loading"></ion-spinner>
-      {{ mode === 'login' ? 'Entrar' : 'Crear usuario' }}
-    </ion-button>
-
-    <ion-text color="medium">
-      <p style="text-align:center; margin-top:12px;">
-        Demo: credenciales se guardan en el navegador (localStorage)
-      </p>
-    </ion-text>
-  </form>
+  <ion-button expand="block" (click)="submit()" [disabled]="loading">
+    <ion-spinner slot="start" *ngIf="loading"></ion-spinner>
+    {{ mode === 'login' ? 'Entrar' : 'Crear usuario' }}
+  </ion-button>
+</form>
 </ion-content>
