@@ -25,6 +25,7 @@ export class HomePage {
       componentProps: {
         redirectTo: '/dashboard'},
       cssClass: 'auth-modal',
+      showBackdrop: true,
       backdropDismiss: false, // ← CLAVE
     });
 

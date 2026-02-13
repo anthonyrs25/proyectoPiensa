@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ModalController, IonicModule, ToastController } from '@ionic/angular';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-modal',
@@ -25,7 +26,8 @@ export class LoginModalComponent {
   constructor(
     private modalCtrl: ModalController,
     private auth: AuthService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private router: Router
   ) {}
 
   close(data?: any) {
@@ -55,7 +57,7 @@ export class LoginModalComponent {
       await this.toast(r.message);
       if (r.ok) {
         await this.close({ ok: true });
-        if (this.redirectTo) window.location.href = this.redirectTo;
+        if(this.redirectTo)this.router.navigateByUrl(this.redirectTo);
       }
     }
   } finally {

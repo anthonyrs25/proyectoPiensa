@@ -1,3 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Acceso</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="mode">
+      <ion-segment-button value="login">
+        <ion-label>Login</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="register">
+        <ion-label>Registro</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content class="ion-padding">
   <div class="auth-form">
     <ion-input

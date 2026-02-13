@@ -165,3 +165,31 @@ ion-modal.auth-modal ion-input.auth-input {
 ion-modal.auth-modal ion-input.auth-input input {
   color: rgba(255,255,255,.95) !important;
 }
+
+/* ===== AUTH MODAL: permitir interacción real con inputs ===== */
+ion-modal.auth-modal,
+ion-modal.auth-modal * {
+  pointer-events: auto !important;
+}
+
+/* Asegura que el contenido esté arriba de cualquier overlay propio */
+ion-modal.auth-modal::part(content) {
+  position: relative !important;
+  z-index: 10001 !important;
+}
+
+/* Si tu landing tiene capas con pointer-events, esto evita que tapen el modal */
+ion-modal.auth-modal + ion-backdrop {
+  pointer-events: auto !important;
+}
+
+/* Inputs clickeables */
+ion-modal.auth-modal ion-input {
+  pointer-events: auto !important;
+}
+
+/* El input HTML real */
+ion-modal.auth-modal ion-input input,
+ion-modal.auth-modal ion-input textarea {
+  pointer-events: auto !important;
+}
