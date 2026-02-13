@@ -49,14 +49,9 @@ ion-modal {
     z-index: 999999 !important;
 }
 
-ion-modal::part(backdrop),
-ion-modal::part(content) {
-    pointer-events: auto !important;
-}
-
-/* ===== AUTH MODAL FIX (Vercel) ===== */
+/* ===== AUTH MODAL FIX (SAFE) ===== */
 ion-modal.auth-modal {
-  --width: 560px;
+  --width: min(560px, 92vw);
   --height: auto;
   --border-radius: 18px;
 }
@@ -65,27 +60,28 @@ ion-modal.auth-modal::part(content) {
   background: #0b0d12 !important;
   border: 1px solid rgba(255,255,255,.12) !important;
   border-radius: 18px !important;
-  overflow: hidden !important;
+
+  /* CLAVE: permitir que el contenido tenga altura */
+  overflow: visible !important;
+  min-height: 420px !important;
 }
 
-/* Asegura que el contenido exista y sea interactivo */
+/* CLAVE: ion-content debe tener altura */
 ion-modal.auth-modal ion-content {
   --background: #0b0d12 !important;
-  pointer-events: auto !important;
-  opacity: 1 !important;
-  visibility: visible !important;
+  height: 100% !important;
+  min-height: 320px !important;
+  display: block !important;
 }
 
-/* Asegura scroll interno del modal (a veces queda colapsado) */
+/* CLAVE: el scroll interno no debe “aplastar” el contenido */
 ion-modal.auth-modal ion-content::part(scroll) {
   padding: 16px !important;
+  display: block !important;
+  min-height: 320px !important;
 }
 
 /* Inputs visibles */
-ion-modal.auth-modal ion-list {
-  background: transparent !important;
-}
-
 ion-modal.auth-modal ion-item {
   --background: rgba(255,255,255,.07) !important;
   --border-color: rgba(255,255,255,.16) !important;
@@ -104,21 +100,9 @@ ion-modal.auth-modal ion-label {
   color: rgba(255,255,255,.75) !important;
 }
 
-/* Segment visible/clickeable */
+/* Segment visible */
 ion-modal.auth-modal ion-segment {
   --background: rgba(255,255,255,.06) !important;
   border: 1px solid rgba(255,255,255,.10) !important;
   border-radius: 12px !important;
-}
-
-ion-modal.auth-modal ion-segment-button {
-  --color: rgba(255,255,255,.75) !important;
-  --color-checked: rgba(255,255,255,.95) !important;
-  --indicator-color: rgba(0,200,255,.8) !important;
-}
-
-/* Por si tu landing tiene una capa que intercepta inputs */
-ion-modal.auth-modal,
-ion-modal.auth-modal * {
-  pointer-events: auto !important;
 }
