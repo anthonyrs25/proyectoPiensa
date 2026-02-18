@@ -8,37 +8,56 @@
 
   <ion-toolbar>
     <ion-segment [value]="mode" (ionChange)="onModeChange($event)">
-  <ion-segment-button value="login">
-    <ion-label>Login</ion-label>
-  </ion-segment-button>
-  <ion-segment-button value="register">
-    <ion-label>Registro</ion-label>
-  </ion-segment-button>
-</ion-segment>
+      <ion-segment-button value="login">
+        <ion-label>Login</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="register">
+        <ion-label>Registro</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
- 
- <div class="auth-form">
-  <div class="field">
-    <label>Usuario</label>
-    <input #u class="native-field" type="text" autocomplete="username" />
-  </div>
+  <ion-list>
+    <ion-item>
+      <ion-input
+        label="Usuario"
+        labelPlacement="stacked"
+        [(ngModel)]="username"
+        autocomplete="username"
+      ></ion-input>
+    </ion-item>
 
-  <div class="field">
-    <label>Contraseña</label>
-    <input #p class="native-field" type="password" autocomplete="current-password" />
-  </div>
+    <ion-item>
+      <ion-input
+        label="Contraseña"
+        labelPlacement="stacked"
+        [(ngModel)]="password"
+        type="password"
+        autocomplete="current-password"
+      ></ion-input>
+    </ion-item>
 
-  <div class="field" *ngIf="mode === 'register'">
-    <label>Confirmar contraseña</label>
-    <input #c class="native-field" type="password" autocomplete="new-password" />
-  </div>
+    <ion-item *ngIf="mode === 'register'">
+      <ion-input
+        label="Confirmar contraseña"
+        labelPlacement="stacked"
+        [(ngModel)]="confirm"
+        type="password"
+        autocomplete="new-password"
+      ></ion-input>
+    </ion-item>
+  </ion-list>
 
-  <ion-button expand="block" [disabled]="loading" (click)="submit(u.value, p.value, p?.value)">
+  <ion-button expand="block" [disabled]="loading" (click)="submit()">
     <ion-spinner slot="start" *ngIf="loading"></ion-spinner>
     {{ mode === 'login' ? 'Entrar' : 'Crear usuario' }}
   </ion-button>
-</div>
+
+  <ion-text color="medium">
+    <p style="text-align:center; margin-top:12px;">
+      Demo: credenciales se guardan en el navegador (localStorage)
+    </p>
+  </ion-text>
 </ion-content>
