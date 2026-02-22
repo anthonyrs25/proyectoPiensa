@@ -12,7 +12,6 @@ import {
   IonInput
 } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular/standalone';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-modal',
@@ -25,18 +24,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-modal.component.scss'],
 })
 export class LoginModalComponent {
-  constructor(
-    private modalCtrl: ModalController,
-    private router: Router
-  ) {}
+  constructor(private modalCtrl: ModalController) {}
 
   close() {
     this.modalCtrl.dismiss();
-  }
-
-  async enter() {
-    // Sin validaciones: solo cierra el modal y navega al dashboard.
-    await this.modalCtrl.dismiss();
-    await this.router.navigateByUrl('/dashboard');
   }
 }
