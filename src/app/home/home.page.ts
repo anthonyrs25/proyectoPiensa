@@ -22,10 +22,13 @@ export class HomePage {
   async openLoginModal() {
     const modal = await this.modalCtrl.create({
       component: LoginModalComponent,
-      breakpoints: [0, 0.5, 0.75, 1],
-      initialBreakpoint: 0.75,
-      handle: true
+      componentProps: {
+        redirectTo: '/dashboard'},
+      cssClass: 'auth-modal',
+      showBackdrop: true,
+      backdropDismiss: false, // ← CLAVE
     });
+
     await modal.present();
   }
 

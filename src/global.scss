@@ -1,22 +1,10 @@
 :root {
-    --ion-font-family: 'Kumbh Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ion-font-family: 'Kumbh Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 html, body {
-    font-family: 'Kumbh Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Kumbh Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
-
-
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
 
 /* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
@@ -27,20 +15,152 @@ html, body {
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
 
-/* Optional CSS utils that can be commented out */
+/* Optional CSS utils */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
+/* Ionic Dark Mode */
+@import "@ionic/angular/css/palettes/dark.system.css";
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+/* Mantén z-index razonable */
+ion-modal {
+  z-index: 10000 !important;
+}
+
+/* =======================================================================
+   AUTH MODAL (Login) - CONFIG ÚNICA Y ESTABLE PARA VERCEL
+   Enfoque: ion-input directo (sin depender de ::part)
+   ======================================================================= */
+
+ion-modal.auth-modal {
+  --width: min(560px, 92vw);
+  --height: auto;
+  --border-radius: 18px;
+}
+
+/* Contenedor del modal */
+ion-modal.auth-modal::part(content) {
+  background: #0b0d12 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  min-height: 560px !important;
+
+  /* Asegura stacking correcto */
+  position: relative !important;
+}
+
+/* Scroll del contenido */
+ion-modal.auth-modal ion-content {
+  --background: #0b0d12 !important;
+  min-height: 460px !important;
+}
+
+ion-modal.auth-modal ion-content::part(scroll) {
+  padding: 16px !important;
+  min-height: 460px !important;
+}
+
+/* Form layout */
+ion-modal.auth-modal .auth-form {
+  display: grid !important;
+  gap: 12px !important;
+}
+
+/* Inputs estilo */
+ion-modal.auth-modal ion-input.auth-input {
+  --background: rgba(255,255,255,.08) !important;
+  --color: rgba(255,255,255,.95) !important;
+  --placeholder-color: rgba(255,255,255,.55) !important;
+  --highlight-color-focused: rgba(0,200,255,.85) !important;
+
+  border: 1px solid rgba(255,255,255,.18) !important;
+  border-radius: 12px !important;
+  padding: 10px 12px !important;
+  min-height: 64px !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* FIX CRÍTICO: el input interno real (Vercel) */
+ion-modal.auth-modal ion-input.auth-input input,
+ion-modal.auth-modal ion-input.auth-input .native-input,
+ion-modal.auth-modal ion-input.auth-input textarea {
+  color: rgba(255,255,255,.95) !important;
+  background: transparent !important;
+
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+
+  /* evita que quede con height 0 */
+  min-height: 44px !important;
+  height: 44px !important;
+
+  /* asegura click y escritura */
+  pointer-events: auto !important;
+}
+
+/* Labels */
+ion-modal.auth-modal ion-label,
+ion-modal.auth-modal .label-text {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* Segment */
+ion-modal.auth-modal ion-segment {
+  --background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  border-radius: 12px !important;
+}
+
+ion-modal.auth-modal ion-segment-button {
+  --color: rgba(255, 255, 255, 0.75) !important;
+  --color-checked: rgba(255, 255, 255, 0.95) !important;
+  --indicator-color: rgba(0, 200, 255, 0.85) !important;
+}
+
+/* Interacción garantizada en el modal */
+ion-modal.auth-modal,
+ion-modal.auth-modal * {
+  pointer-events: auto !important;
+}
+
+ion-modal.auth-modal::part(content) {
+  background: #0b0d12 !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  min-height: 560px !important;
+}
+
+ion-modal.auth-modal .auth-form {
+  display: grid;
+  gap: 12px;
+}
+
+ion-modal.auth-modal .field label {
+  display: block;
+  font-size: 12px;
+  margin: 2px 0 6px;
+  color: rgba(255,255,255,.75);
+}
+
+ion-modal.auth-modal .native-field {
+  width: 100%;
+  min-height: 44px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.95);
+  outline: none;
+}
+
+ion-modal.auth-modal .native-field:focus {
+  border-color: rgba(0,200,255,.85);
+}
