@@ -1,109 +1,12 @@
-<ion-content [fullscreen]="true">
-  <div class="page">
-    <div class="shell">
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-      <!-- SIDEBAR -->
-      <div class="card sidebar">
-        <div class="brand">
-          <div class="dot"></div>
-          <h1>MOTRISERVICE</h1>
-        </div>
+<ion-content class="ion-padding">
+  <h2>Bienvenido al dashboard</h2>
+  <p>Esta pantalla es una versión temporal para despliegue en Vercel.</p>
 
-        <div class="nav">
-          <button class="navbtn" [class.active]="tab==='clientes'" (click)="setTab('clientes')">
-            <span>Clientes</span><small>{{ store.kpis.clientes }}</small>
-          </button>
-
-          <button class="navbtn" [class.active]="tab==='vehiculos'" (click)="setTab('vehiculos')">
-            <span>Vehículos</span><small>{{ store.kpis.vehiculos }}</small>
-          </button>
-
-          <button class="navbtn" [class.active]="tab==='proformas'" (click)="setTab('proformas')">
-            <span>Proformas</span><small>{{ store.kpis.proformas }}</small>
-          </button>
-
-          <button class="navbtn" [class.active]="tab==='ordenes'" (click)="setTab('ordenes')">
-            <span>Órdenes de trabajo</span><small>{{ store.kpis.ordenes }}</small>
-          </button>
-
-          <button class="navbtn" [class.active]="tab==='servicios'" (click)="setTab('servicios')">
-            <span>Servicios</span><small>{{ store.kpis.servicios }}</small>
-          </button>
-
-          <button class="navbtn" [class.active]="tab==='repuestos'" (click)="setTab('repuestos')">
-            <span>Repuestos</span><small>{{ store.kpis.repuestos }}</small>
-          </button>
-
-          <button class="navbtn" [class.active]="tab==='personal'" (click)="setTab('personal')">
-            <span>Personal</span><small>{{ store.kpis.personal }}</small>
-          </button>
-        </div>
-
-        <div style="margin-top:14px; padding:10px;">
-          <div style="color: rgba(255,255,255,.62); font-size:12px;">Sesión</div>
-          <div style="color: rgba(255,255,255,.92); font-weight:700; margin-top:4px;"
-               *ngIf="auth.currentUser() as username">
-            {{ username }}
-          </div>
-
-          <button class="action" style="width:100%; margin-top:10px;" (click)="logout()">
-            Salir
-          </button>
-        </div>
-      </div>
-
-      <!-- MAIN -->
-      <div class="card main">
-        <div class="topbar">
-          <div class="title">
-            <h2>Panel de Control</h2>
-            <p>Clientes • Vehículos • Proformas • OT • Servicios • Repuestos • Personal</p>
-          </div>
-          <div>
-            <ion-button fill="clear" (click)="logout()">Cerrar sesión</ion-button>
-          </div>
-        </div>
-
-        <!-- KPI CARDS -->
-        <div class="kpis">
-          <div class="kpi">
-            <div class="label">Clientes</div>
-            <div class="value">{{ store.kpis.clientes }}</div>
-          </div>
-          <div class="kpi">
-            <div class="label">Vehículos</div>
-            <div class="value">{{ store.kpis.vehiculos }}</div>
-          </div>
-          <div class="kpi">
-            <div class="label">Proformas</div>
-            <div class="value">{{ store.kpis.proformas }}</div>
-          </div>
-          <div class="kpi">
-            <div class="label">Órdenes de trabajo</div>
-            <div class="value">{{ store.kpis.ordenes }}</div>
-          </div>
-        </div>
-
-        <!-- QUICK ACTIONS -->
-        <div class="actions">
-          <button class="action" (click)="setTab('clientes')">+ Nuevo cliente</button>
-          <button class="action" (click)="setTab('vehiculos')">+ Registrar vehículo</button>
-          <button class="action" (click)="setTab('proformas')">+ Crear proforma</button>
-          <button class="action" (click)="setTab('ordenes')">+ Crear OT</button>
-        </div>
-
-        <!-- SECTION RENDER -->
-        <div class="card section">
-          <app-clientes-section *ngIf="tab==='clientes'"></app-clientes-section>
-          <app-vehiculos-section *ngIf="tab==='vehiculos'"></app-vehiculos-section>
-          <app-proformas-section *ngIf="tab==='proformas'"></app-proformas-section>
-          <app-ordenes-section *ngIf="tab==='ordenes'"></app-ordenes-section>
-          <app-servicios-section *ngIf="tab==='servicios'"></app-servicios-section>
-          <app-repuestos-section *ngIf="tab==='repuestos'"></app-repuestos-section>
-          <app-personal-section *ngIf="tab==='personal'"></app-personal-section>
-        </div>
-
-      </div>
-    </div>
-  </div>
+  <ion-button expand="block" (click)="goHome()">Volver al inicio</ion-button>
 </ion-content>
